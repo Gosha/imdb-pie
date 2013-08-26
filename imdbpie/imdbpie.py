@@ -153,6 +153,22 @@ class Imdb(object):
         result = self.get(url)
         return result["data"]["list"]
 
+    def title_images(self, imdb_id):
+        url = self.build_url('/title/photos',  {'tconst' : imdb_id})
+        result = self.get(url)
+        if 'error' in result:
+            return False
+
+        return result["data"]
+
+    def person_images(self, imdb_id):
+        url = self.build_url('/name/photos',  {'nconst' : imdb_id})
+        result = self.get(url)
+        if 'error' in result:
+            return False
+
+        return result["data"]
+
     def get(self, url):
         r = requests.get(url, headers={'User-Agent': '''Mozilla/5.0
         (iPhone; U; CPU iPhone OS 4_1 like Mac OS X; en-us)
